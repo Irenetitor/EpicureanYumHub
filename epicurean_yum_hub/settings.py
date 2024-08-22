@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import dj_database_url
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +21,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!nwrmiybs)*x4)927%nis+e0_kca)wb8rd3+y@gl*bzdv4#7m_'
+# SECRET_KEY = 'django-insecure-!nwrmiybs)*x4)927%nis+e0_kca)wb8rd3+y@gl*bzdv4#7m_'
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = config("DEBUG", cast=bool)
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(",")
 
 
 # Application definition
@@ -83,6 +87,13 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# Ext: postgresql://eyh1:YcTs16L44oFxK7djTwnGJt3ufuN5jYLV@dpg-cr3p2gbv2p9s73e0hl80-a.frankfurt-postgres.render.com/epicureanyumhubdb
+
+# DATABASES["default"] = dj_database_url.parse("postgresql://eyh1:YcTs16L44oFxK7djTwnGJt3ufuN5jYLV@dpg-cr3p2gbv2p9s73e0hl80-a.frankfurt-postgres.render.com/epicureanyumhubdb")
+database_url = config("DATABASE_URL")
+# database_url = "postgresql://eyh1:YcTs16L44oFxK7djTwnGJt3ufuN5jYLV@dpg-cr3p2gbv2p9s73e0hl80-a.frankfurt-postgres.render.com/epicureanyumhubdb"
+DATABASES["default"] = dj_database_url.parse(database_url)
 
 
 # Password validation
