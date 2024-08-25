@@ -48,7 +48,7 @@ def login_page(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-        user_obj = User.objects.filter(username = email)
+        user_obj = User.objects.filter(email = email)
 
         if not user_obj.exists():
             messages.warning(request, 'Account not found.')
@@ -59,7 +59,7 @@ def login_page(request):
         #     messages.warning(request, 'Your account is not verified.')
         #     return HttpResponseRedirect(request.path_info)
 
-        user_obj = authenticate(username = email , password= password)
+        user_obj = authenticate(email = email , password= password)
         if user_obj:
             login(request , user_obj)
             return redirect('/v2/')
@@ -79,7 +79,7 @@ def register_page(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         
-        user_obj = User.objects.filter(username = email)
+        user_obj = User.objects.filter(email = email)
 
         if user_obj.exists():
             messages.warning(request, 'Email is already taken.')
