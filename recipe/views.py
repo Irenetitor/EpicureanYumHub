@@ -15,7 +15,7 @@ def home(request):
     context = {
        'posts': Post.objects.all()
     }
-    return render(request, 'recipe/home.html', context)
+    return render(request, 'recipe/home-old.html', context)
 
 class PostListView(ListView):
     model = Post
