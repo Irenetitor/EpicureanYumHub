@@ -23,7 +23,6 @@ TEMPLATE_DIR = os.path.join(BASE_DIR , 'templates')
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-!nwrmiybs)*x4)927%nis+e0_kca)wb8rd3+y@gl*bzdv4#7m_'
 SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -91,11 +90,7 @@ DATABASES = {
     }
 }
 
-# Ext: postgresql://eyh1:YcTs16L44oFxK7djTwnGJt3ufuN5jYLV@dpg-cr3p2gbv2p9s73e0hl80-a.frankfurt-postgres.render.com/epicureanyumhubdb
-
-# DATABASES["default"] = dj_database_url.parse("postgresql://eyh1:YcTs16L44oFxK7djTwnGJt3ufuN5jYLV@dpg-cr3p2gbv2p9s73e0hl80-a.frankfurt-postgres.render.com/epicureanyumhubdb")
 database_url = config("DATABASE_URL")
-# database_url = "postgresql://eyh1:YcTs16L44oFxK7djTwnGJt3ufuN5jYLV@dpg-cr3p2gbv2p9s73e0hl80-a.frankfurt-postgres.render.com/epicureanyumhubdb"
 DATABASES["default"] = dj_database_url.parse(database_url)
 
 

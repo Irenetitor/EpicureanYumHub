@@ -9,5 +9,4 @@ urlpatterns = [
 
    path('register/' , register_page , name="v2register"),
    path('profile/' , profile_page , name="v2profile"),
-#    path('activate/<email_token>/' , activate_email , name="activate_email"),
 ]
