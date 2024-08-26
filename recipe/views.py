@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse
-from .models import Post
+from .models import Post, Admin_Post
 from django.views.generic import (
     ListView, 
     DetailView, 
@@ -10,16 +10,20 @@ from django.views.generic import (
     DeleteView
     )
 
-# Create your views here.
-def home(request):
-    context = {
-       'posts': Post.objects.all()
-    }
-    return render(request, 'recipe/home-old.html', context)
-
 class PostListView(ListView):
     model = Post
     template_name = 'recipe/home.html' #<app>/<model>_<viewtype>.html
+    context_object_name = 'posts'
+    ordering = ['-date_posted'] 
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['admin_posts'] = Admin_Post.objects.all()
+        return context
+
+class PostUserListView(ListView):
+    model = Post
+    template_name = 'recipe/recipe_list.html' #<app>/<model>_<viewtype>.html
     context_object_name = 'posts'
     ordering = ['-date_posted'] 
 
@@ -28,15 +32,15 @@ class PostDetailView(DetailView):
     
 class PostCreateView(LoginRequiredMixin, CreateView): 
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'image']
      
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-         
+    
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ['image', 'title', 'content']
      
     def form_valid(self, form):
         form.instance.author = self.request.user

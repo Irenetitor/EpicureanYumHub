@@ -1055,3 +1055,28 @@ footer .container .icon-grid a {
 /*********************************************************************************************************/
 /*********************************** End - style for Footer **********************************************/
 /*********************************************************************************************************/
+
+.rounded-circle {
+  border-radius: 30% !important; }
+  
+.article-img {
+  height: 80px;
+  width: 80px;
+  margin-right: 16px;
+}
+
+.article-detail-img {
+  height: 120px;
+  width: 120px;
+  margin-right: 16px;
+  margin-bottom: 16px;
+
+}
+
+.account-img {
+  height: 125px !important;
+  width: 125px  !important;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
